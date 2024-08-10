@@ -8,9 +8,9 @@ Swiper.use([Navigation, Pagination, Scrollbar]);
 import "../styles/main.scss";
 import { event } from "jquery";
 
-const menu = document.querySelector(".menu");
-const telBtn = document.querySelector(".tel-btn");
-const contacts = document.querySelector(".contacts");
+const menu = document.querySelectorAll(".menu");
+const telBtn = document.querySelectorAll(".tel-btn");
+const contacts = document.querySelectorAll(".contacts");
 const education = document.querySelector(".education");
 const educationMain = document.querySelector(".education_main");
 const advantages = document.querySelector(".advantages");
@@ -48,7 +48,7 @@ if (advantages) {
   });
 }
 
-menu.addEventListener("click", (event) => {
+menu.forEach(el => el.addEventListener("click", (event) => {
   const menuButton = event.target.closest(".menu-button");
   const parent = event.target.closest(".menu-item");
   const submenu = parent.querySelector(".submenu");
@@ -57,15 +57,15 @@ menu.addEventListener("click", (event) => {
     submenu.classList.toggle("active");
     menuButton.classList.toggle("active");
   }
-});
+}))
 
-telBtn.addEventListener("click", (event) => {
+telBtn.forEach((el, i) => el.addEventListener("click", (event) => {
   const telBtn = event.target.closest(".tel-btn");
 
   if (telBtn) {
-    contacts.classList.toggle("active");
+    contacts[i].classList.toggle("active");
   }
-});
+}))
 
 if (education) {
   document.addEventListener("DOMContentLoaded", function () {
@@ -245,4 +245,35 @@ if (reviewsRating) {
     //   draggable: true,
     // },
   });
+}
+
+
+//burger-menu 
+
+if (window.screen.width < 1226 && window.screen.width > 768) {
+  const burgerBtnOpen = document.querySelector('.burger-menu-btn.open')
+  const burgerMenu = document.querySelector('.burger-menu.tablet')
+  const burgerBtnClose = document.querySelector('.burger-menu-btn.close')
+
+  burgerBtnOpen.addEventListener('click', (e) => {
+    burgerMenu.classList.add('active')
+  })
+
+  burgerBtnClose.addEventListener('click', (e) => {
+    burgerMenu.classList.remove('active')
+  })
+}
+
+if (window.screen.width <= 768) {
+  const burgerBtnOpen = document.querySelector('.burger-menu-btn.open')
+  const burgerBtnClose = document.querySelector('.burger-menu.mobile .burger-menu-btn.close')
+  const burgerMenuMobile = document.querySelector('.burger-menu.mobile')
+
+  burgerBtnOpen.addEventListener('click', (e) => {
+    burgerMenuMobile.classList.add('active')
+  })
+
+  burgerBtnClose.addEventListener('click', (e) => {
+    burgerMenuMobile.classList.remove('active')
+  })
 }
